@@ -244,20 +244,22 @@ final class Manager extends Handler {
 
   @TargetApi(19)
   private void handleTranslucentActionBar(ViewGroup.MarginLayoutParams params, Activity activity) {
-    final boolean fitsSystemWindows = activity.findViewById(android.R.id.content).getFitsSystemWindows();
     // Translucent status is only available as of Android 4.4 Kit Kat.
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && fitsSystemWindows) {
-      final int flags = activity.getWindow().getAttributes().flags;
-      final int translucentStatusFlag = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+      final boolean fitsSystemWindows = activity.findViewById(android.R.id.content).getFitsSystemWindows();
+      if (fitsSystemWindows) {
+        final int flags = activity.getWindow().getAttributes().flags;
+        final int translucentStatusFlag = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
         /* Checks whether translucent status is enabled for this window.
         * If true, sets the top margin to show the crouton just below the action bar. */
-      if ((flags & translucentStatusFlag) == translucentStatusFlag) {
-        final int actionBarContainerId = Resources.getSystem().getIdentifier("action_bar_container", "id", "android");
-        final View actionBarContainer = activity.findViewById(actionBarContainerId);
-        // The action bar is present: the app is using a Holo theme.
-        if (actionBarContainer != null) {
-          final ViewGroup.MarginLayoutParams marginParams = (ViewGroup.MarginLayoutParams) params;
-          marginParams.topMargin = actionBarContainer.getBottom();
+        if ((flags & translucentStatusFlag) == translucentStatusFlag) {
+          final int actionBarContainerId = Resources.getSystem().getIdentifier("action_bar_container", "id", "android");
+          final View actionBarContainer = activity.findViewById(actionBarContainerId);
+          // The action bar is present: the app is using a Holo theme.
+          if (actionBarContainer != null) {
+            final ViewGroup.MarginLayoutParams marginParams = (ViewGroup.MarginLayoutParams) params;
+            marginParams.topMargin = actionBarContainer.getBottom();
+          }
         }
       }
     }
