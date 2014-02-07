@@ -196,7 +196,8 @@ final class Manager extends Handler {
     if (null == croutonView.getParent()) {
       ViewGroup.LayoutParams params = croutonView.getLayoutParams();
       if (null == params) {
-        params = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params =
+            new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
       }
       // display Crouton in ViewGroup is it has been supplied
       if (null != crouton.getViewGroup()) {
@@ -243,8 +244,9 @@ final class Manager extends Handler {
 
   @TargetApi(19)
   private void handleTranslucentActionBar(ViewGroup.MarginLayoutParams params, Activity activity) {
+    final boolean fitsSystemWindows = activity.findViewById(android.R.id.content).getFitsSystemWindows();
     // Translucent status is only available as of Android 4.4 Kit Kat.
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && fitsSystemWindows) {
       final int flags = activity.getWindow().getAttributes().flags;
       final int translucentStatusFlag = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
         /* Checks whether translucent status is enabled for this window.
