@@ -20,13 +20,13 @@ dependencies {
 }
 
 android {
-  buildToolsVersion '20.0.0'
-  compileSdkVersion 19
+  buildToolsVersion BUILD_TOOLS
+  compileSdkVersion COMPILE_SDK
   defaultConfig {
     versionCode 10
     versionName = project.version
     minSdkVersion 8
-    targetSdkVersion 19
+    targetSdkVersion TARGET_SDK
   }
 
   compileOptions {
